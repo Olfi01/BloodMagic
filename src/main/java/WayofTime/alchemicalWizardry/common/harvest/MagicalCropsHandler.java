@@ -29,10 +29,12 @@ public class MagicalCropsHandler implements IHarvestHandler
     public int harvestMeta;
     public IPlantable harvestSeed;
 
-    public MagicalCropsHandler(String id, int meta)
+    public MagicalCropsHandler(String id, int meta, String seedId)
     {
         harvestBlock = getBlockForString(id);
         harvestMeta = meta;
+		Item seed = getItemForString(seedId);
+		if (seed instanceof IPlantable) harvestSeed = (IPlantable) seed;
     }
 
     public boolean canHandleBlock(Block block)
@@ -53,6 +55,12 @@ public class MagicalCropsHandler implements IHarvestHandler
             return false;
         }
         world.func_147480_a(xCoord, yCoord, zCoord, true);
+		
+		IPlantable seed = harvestSeed;
+		int plantMeta = seed.getPlantMetadata(world, xCoord, yCoord, zCoord);
+		Block plantBlock = seed.getPlant(world, xCoord, yCoord, zCoord);
+		world.setBlock(xCoord, yCoord, zCoord, plantBlock, plantMeta, 3);
+		
         return true;
     }
     
@@ -69,7 +77,8 @@ public class MagicalCropsHandler implements IHarvestHandler
         for (String name : cropNames)
         {
             String id = "magicalcrops:magicalcrops_" + name + "Crop";
-            HarvestRegistry.registerHarvestHandler(new MagicalCropsHandler(id, 7));
+			String seedId = "magicalcrops:magicalcrops_" + name + "Seeds";
+            HarvestRegistry.registerHarvestHandler(new MagicalCropsHandler(id, 7, seedId));
         }
     }
 }

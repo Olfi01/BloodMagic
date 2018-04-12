@@ -1,6 +1,7 @@
 package WayofTime.alchemicalWizardry.common.harvest;
 
 import WayofTime.alchemicalWizardry.api.harvest.IHarvestHandler;
+import WayofTime.bloodmagic.ritual.harvest.HarvestRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -11,7 +12,18 @@ import java.util.List;
 
 public class MagicalCropsHandler implements IHarvestHandler
 {
-
+    private static String[] cropNames = 
+    {
+        "Air", "Coal", "Dye", "Earth", "Fire", "Minicio", "Nature", "Water",
+        "Redstone", "Glowstone", "Obsidian", "Nether", "Iron", 
+        "Gold", "Lapis", "Experience", "Quartz", 
+        "Diamond", "Emerald", 
+        "Blaze", "Creeper", "Enderman", "Ghast", "Skeleton", "Slime", "Spider", "Wither",
+        "Chicken", "Cow", "Pig", "Sheep",
+        "Aluminum", "Ardite", "Cobalt", "Copper", "Peridot", "Ruby", "Sapphire", 
+        "Rubber", "Tin", "Sulfur", "Alumite", "Bronze", "Manasteel", "Manyullyn", "Saltpeter", "Steel", "Terrasteel"
+    };
+    
     public Block harvestBlock;
     public int harvestMeta;
     public IPlantable harvestSeed;
@@ -49,5 +61,14 @@ public class MagicalCropsHandler implements IHarvestHandler
         String modId = parts[0];
         String name = parts[1];
         return GameRegistry.findBlock(modId, name);
+    }
+    
+    public static void registerCropsHandlers()
+    {
+        for (String name : cropNames)
+        {
+            String id = "magicalcrops:magicalcrops_" + name + "Crop";
+            HarvestRegistry.registerHarvestHandler(new MagicalCropsHandler(id, 7));
+        }
     }
 }

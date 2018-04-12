@@ -278,6 +278,7 @@ import WayofTime.alchemicalWizardry.common.tileEntity.TETeleposer;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEWritingTable;
 import WayofTime.alchemicalWizardry.common.tileEntity.gui.GuiHandler;
 import WayofTime.alchemicalWizardry.common.tweaker.MineTweakerIntegration;
+import WayofTime.alchemicalWizardry.common.harvest.MagicalCropsHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -1316,6 +1317,11 @@ public class AlchemicalWizardry
         	HarvestRegistry.registerHarvestHandler(new AgriCraftCropHarvestHandler());
         	AlchemicalWizardry.logger.info("Loaded AgriCraft Handlers!");
         }
+	if(Loader.isModLoaded("magicalcrops"))
+	{
+		MagicalCropsHandler.registerCropsHandlers();
+		AlchemicalWizardry.logger.info("Loaded Magical Crops Handlers!");
+	}
         
         isBotaniaLoaded = Loader.isModLoaded("Botania");
         isPneumaticCraftLoaded = Loader.isModLoaded("PneumaticCraft");

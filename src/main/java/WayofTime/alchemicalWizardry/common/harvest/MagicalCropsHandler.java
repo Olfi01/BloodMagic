@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.item.Item;
 
 import java.util.List;
 
@@ -70,6 +71,14 @@ public class MagicalCropsHandler implements IHarvestHandler
         String modId = parts[0];
         String name = parts[1];
         return GameRegistry.findBlock(modId, name);
+    }
+	
+	public static Item getItemForString(String str)
+    {
+        String[] parts = str.split(":");
+        String modId = parts[0];
+        String name = parts[1];
+        return GameRegistry.findItem(modId, name);
     }
     
     public static void registerCropsHandlers()

@@ -1,12 +1,13 @@
 package WayofTime.alchemicalWizardry.common.harvest;
 
 import WayofTime.alchemicalWizardry.api.harvest.IHarvestHandler;
-import WayofTime.bloodmagic.ritual.harvest.HarvestRegistry;
+import WayofTime.alchemicalWizardry.api.harvest.HarvestRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 import java.util.List;
 

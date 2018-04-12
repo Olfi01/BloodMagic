@@ -14,15 +14,12 @@ public class MagicalCropsHandler implements IHarvestHandler
 
     public Block harvestBlock;
     public int harvestMeta;
-    public ItemStack harvestItem;
     public IPlantable harvestSeed;
 
-    public MagicalCropsHandler(String id, int meta, ItemStack seed)
+    public MagicalCropsHandler(String id, int meta)
     {
-        //harvestBlock = block;
+        harvestBlock = getBlockForString(id);
         harvestMeta = meta;
-        harvestItem = seed;
-        if (seed.getItem() instanceof IPlantable) harvestSeed = (IPlantable) seed.getItem();
     }
 
     public boolean canHandleBlock(Block block)
@@ -42,70 +39,15 @@ public class MagicalCropsHandler implements IHarvestHandler
         {
             return false;
         }
-
-        IPlantable seed = this.getSeedItem(block);
-
-        if (seed == null)
-        {
-            world.func_147480_a(xCoord, yCoord, zCoord, true);
-
-            return true;
-        } else
-        {
-            int fortune = 0;
-
-            List<ItemStack> list = block.getDrops(world, xCoord, yCoord, zCoord, meta, fortune);
-            boolean foundAndRemovedSeed = false;
-
-            for (ItemStack stack : list)
-            {
-                if (stack == null)
-                {
-                    continue;
-                }
-                if (harvestItem.isItemEqual(stack))
-                {
-                    int itemSize = stack.stackSize;
-                    if (itemSize<1)
-                    {
-                        continue;
-                    }
-                    else if (itemSize==1)
-                    {
-                        list.remove(stack);
-                    }
-                    else
-                    {
-                        stack.stackSize--;
-                    }
-                    foundAndRemovedSeed = true;
-                    break;
-                }
-            }
-
-            if (foundAndRemovedSeed)
-            {
-                int plantMeta = seed.getPlantMetadata(world, xCoord, yCoord, zCoord);
-                Block plantBlock = seed.getPlant(world, xCoord, yCoord, zCoord);
-
-                world.func_147480_a(xCoord, yCoord, zCoord, false);
-
-                world.setBlock(xCoord, yCoord, zCoord, plantBlock, plantMeta, 3);
-
-                for (ItemStack stack : list)
-                {
-                    EntityItem itemEnt = new EntityItem(world, xCoord, yCoord, zCoord, stack);
-
-                    world.spawnEntityInWorld(itemEnt);
-                }
-            }
-
-            return false;
-        }
+        world.func_147480_a(xCoord, yCoord, zCoord, true);
+        return true;
     }
-
-    public IPlantable getSeedItem(Block block)
+    
+    public static Block getBlockForString(String str)
     {
-        return harvestSeed;
+        String[] parts = str.split(":");
+        String modId = parts[0];
+        String name = parts[1];
+        return GameRegistry.findBlock(modId, name);
     }
 }

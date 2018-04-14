@@ -22,7 +22,7 @@ public class MagicalCropsHandler implements IHarvestHandler
         "Diamond", "Emerald", 
         "Blaze", "Creeper", "Enderman", "Ghast", "Skeleton", "Slime", "Spider", "Wither",
         "Chicken", "Cow", "Pig", "Sheep",
-        "Aluminum", "Ardite", "Cobalt", "Copper", "Peridot", "Ruby", "Sapphire", 
+        "Aluminium", "Ardite", "Cobalt", "Copper", "Peridot", "Ruby", "Sapphire", 
         "Rubber", "Tin", "Sulfur", "Alumite", "Bronze", "Manasteel", "Manyullyn", "Saltpeter", "Steel", "Terrasteel"
     };
     
